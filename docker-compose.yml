@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  mongoservice:
+    image: mongo
+    container_name: myMongoDB
+    ports:
+      - 27017:27017
+
+  perdimisdocumentos_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MONGO_URL=mongodb://mongoservice:27017/test_db
+      - DATABASE_HOST=mongoservice
+      - WAIT_FOR_DB=mongoservice:27017
+    depends_on:
+      - mongoservice
+    ports:
+      - 8080:8080
+
+
+
+
+
