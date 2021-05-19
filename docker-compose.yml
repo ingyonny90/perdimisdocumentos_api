@@ -3,6 +3,10 @@ services:
   mongoservice:
     image: mongo
     container_name: myMongoDB
+    environment:
+      - MONGO_INITDB_DATABASE=test_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
     ports:
       - 27017:27017
 
@@ -11,7 +15,6 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - MONGO_URL=mongodb://mongoservice:27017/test_db
       - DATABASE_HOST=mongoservice
       - WAIT_FOR_DB=mongoservice:27017
     depends_on:
